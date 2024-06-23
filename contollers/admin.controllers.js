@@ -147,3 +147,20 @@ export const getOrders = async (req, res) => {
     return res.status(500).json({ success: false, error });
   }
 };
+
+export const getBikes = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    if (!userId) {
+      return res
+        .status(404)
+        .json({ success: false, error: "User is required." });
+    }
+    const bikes = await Bike.find({ admin: userId, isActive: true });
+    return res
+      .status(200)
+      .json({ success: true, message: "Bike fetched successfully.", bikes });
+  } catch (error) {
+    return res.status(500).json({ success: false, error });
+  }
+};

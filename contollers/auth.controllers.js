@@ -75,6 +75,7 @@ export const login = async (req, res) => {
         name: isUserExist.name,
         email: isUserExist.email,
         role: "user",
+        id: isUserExist._id,
       }, // store it in context
     });
   } catch (error) {
@@ -128,6 +129,7 @@ export const loginAdmin = async (req, res) => {
           name: isAdminExist.name,
           email: isAdminExist.email,
           role: "admin",
+          id: isAdminExist._id,
         },
       });
     }
@@ -156,6 +158,7 @@ export const getCurrentUser = async (req, res) => {
           name: isUserExist.name,
           email: isUserExist.email,
           role: "user",
+          id: isUserExist._id,
         },
       });
     } else {
@@ -167,6 +170,7 @@ export const getCurrentUser = async (req, res) => {
             name: isAdminExist.name,
             email: isAdminExist.email,
             role: "admin",
+            id: isAdminExist._id,
           },
         });
       } else {

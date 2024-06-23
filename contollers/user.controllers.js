@@ -68,12 +68,12 @@ export const getCartProducts = async (req, res) => {
         .status(400)
         .json({ success: false, error: "User id is required." });
     }
-    const cartBikes = await Cart.find({ user: userId }).populate("bikes");
-    // console.log(cartBikes,"cartBikes")
+    const cartBikes = await Cart.findOne({ user: userId }).populate("bikes");
+    console.log(cartBikes, "cartBikes");
     return res.status(200).json({
       success: true,
       message: "Cart bikes successfully fetched.",
-      cartBikes: cartBikes,
+      cartBikes: cartBikes.bikes,
     });
   } catch (error) {
     return res.status(500).json({ success: false, error });
@@ -137,7 +137,10 @@ export const buyBike = async (req, res) => {
 export const purchaseHistory = async (req, res) => {
   try {
     const { userId } = req.body;
-    const orders = await Order.find({ user: userId }).populate("purchasedbikes");
+    const orders = await Order.find({ user: userId }).populate(
+      "purchasedbikes"
+    );
+    console.log(orders, "orders");
     return res
       .status(200)
       .json({ success: true, message: "Orders successfully fetched.", orders });
